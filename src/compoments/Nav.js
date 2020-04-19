@@ -9,7 +9,7 @@ class Nav extends Component {
                 <ul>
                     <Link to='/'>Dashboard</Link>
                     <span>  </span>
-                    <Link to='/login'>Log out</Link>
+                    <Link to='/signin'>Log out</Link>
                     <span>  </span>
                     <Link to='/newquestion'>new question</Link>
                     <span>  </span>
