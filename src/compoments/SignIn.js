@@ -5,7 +5,7 @@ import { setSignedInUser } from '../actions/authedUser'
 class SignIn extends Component {
 
     state = {
-        authedUserId: this.props.firstUser
+        authedUserId: null
     }
 
     _handleChange = (e) => {
@@ -25,7 +25,6 @@ class SignIn extends Component {
     render() {
         const { users } = this.props
         const userKeys = Object.keys(users)
-        console.log(userKeys)
         return (
             <div>
                 <form onSubmit={this._handleSubmit}>
@@ -63,9 +62,7 @@ class SignIn extends Component {
 
 function mapStateToProps(state) {
     const { users } = state
-    var firstUser = (users !== undefined && users.length > 0) ? users[Object.keys(users)[0]] : null
     return {
-        firstUser,
         users
     }
 }
