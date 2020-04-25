@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { setSignedInUser } from '../actions/authedUser'
 
 class Nav extends Component {
+
+    _handlSignOut = (e) => {
+        this.props.dispatch(setSignedInUser(null))
+    }
 
     render() {
         return (
@@ -15,7 +20,7 @@ class Nav extends Component {
                     <Link to='/leaderboard'>leader board</Link>
                     <span>  </span>
                     <span>Hi {this.props.authedUserId}  </span>
-                    <Link to='/signin'>Log out</Link>
+                    <button onClick={this._handlSignOut}>Log out</button>
                 </ul>
             </div>
         )
