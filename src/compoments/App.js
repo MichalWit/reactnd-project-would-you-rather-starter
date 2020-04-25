@@ -15,18 +15,25 @@ class App extends React.Component {
   }
 
   render() {
+    const { authedUserId } = this.props
     return (
       <div>
         <BrowserRouter>
-          <Nav/>
-          <Route path='/' exact component={Dashboard}/>
-          <Route path='/signin' component={SignIn}/>
-          <Route path='/newquestion' component={NewQuestion}/>
-          <Route path='/leaderboard' component={LeaderBoard}/>
+          {
+            authedUserId
+              ? <React.Fragment>
+                  <Nav/>
+                  <Route path='/' exact component={Dashboard}/>
+                  <Route path='/signin' component={SignIn}/>
+                  <Route path='/newquestion' component={NewQuestion}/>
+                  <Route path='/leaderboard' component={LeaderBoard}/>
+                </React.Fragment>
+              : <Route path='/' component={SignIn}/>
+          }
         </BrowserRouter>
       </div>
     )
   }
 }
 
-export default connect()(App)
+export default connect((state) => ({authedUserId: state.authedUserId}))(App)
