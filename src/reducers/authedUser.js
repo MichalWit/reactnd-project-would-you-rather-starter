@@ -1,11 +1,9 @@
 import { SET_SIGNED_IN_USER } from '../actions/authedUser'
 
-export function authedUserId(state = {}, action) {
+export function authedUserId(state = null, action) {
     switch (action.type) {
         case SET_SIGNED_IN_USER:
-            return {
-                authedUserId: action.authedUserId
-            }
+            return action.authedUserId
         default:
             return state
     }
