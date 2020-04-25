@@ -1,5 +1,6 @@
 import { _getUsers, _getQuestions } from '../utils/_DATA'
 import { receiveUsers } from './users'
+import { receiveQuestions } from './questions'
 
 export function handleInitialData() {
     return (dispatch) => {
@@ -17,10 +18,9 @@ export function handleInitialData() {
                     questions
                 ]
             ) => {
-                // TODO: dispatch loaded users
                 dispatch(receiveUsers(users))
+                dispatch(receiveQuestions(questions))
 
-                // TODO: dispatch loaded questionss
                 console.log("received users")
                 console.log(users)
                 console.log("received questions")
