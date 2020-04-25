@@ -36,7 +36,11 @@ class SignIn extends Component {
                             ))
                         }
                     </select>
-                    <button type='submit' onSubmit={this._handleSubmit}>Sign in with selected user</button>
+                    <button
+                        type='submit'
+                        onSubmit={this._handleSubmit}
+                        disabled={this.state.authedUserId===null}
+                    >Sign in with selected user</button>
                 </form>
                 <ul>
                 {
