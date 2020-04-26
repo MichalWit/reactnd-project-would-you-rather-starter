@@ -6,7 +6,7 @@ body {
 }
 
 .miniAvatar {
-  width: 40px
+  width: 24px
 }
 
 .mediumAvatar {
@@ -85,6 +85,18 @@ li {
   height: 100px;
 }
 
+.genericCenterContainer {
+  width: 100%;
+  text-align: center;
+}
+
+.centerContainerElement {
+  display: inline-block;
+  height: 60px;
+  line-height: 60px;
+  white-space: nowrap;
+}
+
 .questionsContainer {
   width: 100%;
   text-align: center;
@@ -127,12 +139,12 @@ li {
 
 .navTab {
   display: inline-block;
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .navUserSection {
   display: inline-block;
-  padding: 10px;
+  padding-right: 10px;
   font-weight: bold;
   float: right;
 }

@@ -42,7 +42,7 @@ class SignIn extends Component {
                                 <img
                                     src={selectedUser.avatarURL}
                                     alt={`Avatar of name ${selectedUser.name}`}
-                                    className='avatar'
+                                    className='mediumAvatar'
                                 />
                             </React.Fragment>
                             : <div>User is not selected</div>

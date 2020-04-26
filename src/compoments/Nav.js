@@ -15,33 +15,51 @@ class NavUserSection extends React.Component {
 
     render() {
         return <div className='navUserSection'>
-            <span>Hi {this.props.authedUserId}  </span>
-            <span className='logOutBtn' onClick={this._handlSignOut}>(Log out)</span>
+                <div className="centerContainerElement">
+                    <span>Hi {this.props.authedUser.name}  </span>
+                </div>
+                <div className="centerContainerElement">
+                    <img
+                        src={this.props.authedUser.avatarURL}
+                        alt={`Avatar of name ${this.props.authedUser.name}`}
+                        className='avatar'
+                        className="miniAvatar"
+                    />
+                </div>
+                <div className="centerContainerElement">
+                    <span className='logOutBtn' onClick={this._handlSignOut}>(Log out)</span>
+                </div>
         </div>
     }
 }
+
+function mapStateToProps(state) {
+    const authedUser = state.users[state.authedUserId]
+    return {
+        authedUser
+    }
+}
+
+const ConnectedNavUserSection = connect(mapStateToProps)(NavUserSection)
 
 class Nav extends Component {
 
     render() {
         return (
             <div className='nav'>
-                <Link to='/'><NavTab label='Dashboard'/></Link>
-                <Link to='/newquestion'><NavTab label='new question'/></Link>
-                <Link to='/leaderboard'><NavTab label='leader board'/></Link>
-                <NavUserSection 
-                    authedUserId={this.props.authedUserId}
-                    dispatch={this.props.dispatch}
-                />
+                <div className="centerContainerElement">
+                    <Link to='/'><NavTab label='Dashboard'/></Link>
+                </div>
+                <div className="centerContainerElement">
+                    <Link to='/newquestion'><NavTab label='new question'/></Link>
+                </div>
+                <div className="centerContainerElement">
+                    <Link to='/leaderboard'><NavTab label='leader board'/></Link>
+                </div>
+                <ConnectedNavUserSection/>
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        authedUserId: state.authedUserId
-    }
-}
-
-export default connect(mapStateToProps)(Nav)
+export default Nav
