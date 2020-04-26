@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class QuestionLabel extends Component {
@@ -20,38 +21,6 @@ class QuestionLabel extends Component {
     }
 }
 
-class Question extends Component {
-
-    render() {
-        const {
-            id,
-            optionOneText,
-            authorAvatarURL,
-            authorName
-        } = this.props.detailedQuestion
-
-        
-        return (
-            <li style={{width: "96%", background: "#b3ccff", margin: "2%", padding: 0}}>
-                <div style={{display: "inline-block", width: "50%"}}>
-                    <p>{authorName} asks:</p>
-                    <img
-                        src={authorAvatarURL}
-                        alt={`Avatar of name ${authorName}`}
-                        className='avatar'
-                        style={{width:100}}
-                    />
-                </div>
-                <div style={{display: "inline-block", width: "50%"}}> 
-                    <p>Would you rather:</p>
-                    <p>... {optionOneText} ...</p>
-                    <button>View poll</button>
-                </div>
-            </li>
-        )
-    }
-}
-
 class Questions extends Component {
 
     render() {
@@ -59,10 +28,22 @@ class Questions extends Component {
             <ul>
                 {
                     this.props.questions.map((detailedQuestion) => (
-                        <Question
-                            key={detailedQuestion.id}
-                            detailedQuestion={detailedQuestion}
-                        />
+                        <li className="questionContainer">
+                            <div className="question">
+                                <p>{detailedQuestion.authorName} asks:</p>
+                                <img
+                                    src={detailedQuestion.authorAvatarURL}
+                                    alt={`Avatar of name ${detailedQuestion.authorName}`}
+                                    className='avatar'
+                                    className="mediumAvatar"
+                                />
+                            </div>
+                            <div className="question"> 
+                                <p>Would you rather:</p>
+                                <p>... {detailedQuestion.optionOneText} ...</p>
+                                <Link to={`/questions/${detailedQuestion.id}`}><button>View poll</button></Link>
+                            </div>
+                        </li>
                     ))
                 }
             </ul>
@@ -82,31 +63,34 @@ class Dashboard extends Component {
         }))
     }
 
+    _addAvatarAndName(question, users) {
+        return {
+            id: question.id,
+            optionOneText: question.optionOne.text,
+            authorAvatarURL: users[question.author].avatarURL,
+            authorName: users[question.author].name
+        }
+    }
+
+    _extractAnswered(answers, questions, users) {
+        return Object.keys(answers)
+            .map((id) => this._addAvatarAndName(questions[id], users))
+    }
+
+    _extractUnanswered(answers, questions, users) {
+        return Object.keys(questions)
+            .filter((qId) => answers[qId] === undefined)
+            .map((id) => this._addAvatarAndName(questions[id], users))
+    }
+
     render() {
         const { authedUserId, questions, users } = this.props
-
         const authedUser = users[authedUserId]
         const answers = authedUser.answers
 
-        const answeredQuestionIds = Object.keys(answers)
-        const answeredQuestions = answeredQuestionIds
-            .map((id) => questions[id])
-            .map((question) => ({
-                id: question.id,
-                optionOneText: question.optionOne.text,
-                authorAvatarURL: users[question.author].avatarURL,
-                authorName: users[question.author].name
-            }))
+        const answeredQuestions = this._extractAnswered(answers, questions, users)
+        const unansweredQuestions = this._extractUnanswered(answers, questions, users)
 
-        const unansweredQuestions = Object.keys(questions)
-            .filter((qId) => answers[qId] === undefined)
-            .map((unansweredQuestionId) => questions[unansweredQuestionId])
-            .map((question) => ({
-                id: question.id,
-                optionOneText: question.optionOne.text,
-                authorAvatarURL: users[question.author].avatarURL,
-                authorName: users[question.author].name
-            }))
 
         return (
             <div className="questionsContainer">

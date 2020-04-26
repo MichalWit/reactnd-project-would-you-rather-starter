@@ -5,6 +5,14 @@ body {
   color: #252525;
 }
 
+.miniAvatar {
+  width: 40px
+}
+
+.mediumAvatar {
+  width: 100px
+}
+
 a {
   text-decoration: none;
   font-weight: bold;
@@ -85,6 +93,18 @@ li {
 .questions {
   width: 90%;
   display: inline-block;
+}
+
+.questionContainer {
+  width: 96%;
+  background: #b3ccff;
+  margin: 2%;
+  padding: 0
+}
+
+.question {
+  display: inline-block;
+  width: 50%
 }
 
 .answerTab {

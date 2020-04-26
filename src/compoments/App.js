@@ -5,6 +5,7 @@ import SignIn from './SignIn'
 import Dashboard from './Dashboard'
 import NewQuestion from './NewQuestion'
 import Nav from './Nav';
+import Poll from './Poll'
 import LeaderBoard from './LeaderBoard';
 import { handleInitialData } from '../actions/shared'
 
@@ -27,6 +28,7 @@ class App extends React.Component {
                   <Route path='/signin' component={SignIn}/>
                   <Route path='/newquestion' component={NewQuestion}/>
                   <Route path='/leaderboard' component={LeaderBoard}/>
+                  <Route path='/questions/:question_id' component={Poll}/>
                 </React.Fragment>
               : <Route path='/' component={SignIn}/>
           }
