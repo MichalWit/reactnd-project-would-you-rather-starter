@@ -20,66 +20,48 @@ class QuestionLabel extends Component {
     }
 }
 
-class AnsweredQuestion extends Component {
+class Question extends Component {
 
     render() {
-        const { answeredQuestion } = this.props
-        const question = answeredQuestion[0]
-        const answer = answeredQuestion[1]
+        const {
+            id,
+            optionOneText,
+            authorAvatarURL,
+            authorName
+        } = this.props.detailedQuestion
+
+        
         return (
-            <li key={question.id}>
-                <p>Would you rather:</p>
-                <p>{question.optionOne.text}</p>
-                <p>or</p>
-                <p>{question.optionTwo.text}</p>
-                <p>Answered:</p>
-                <p>{answer}</p>
+            <li style={{width: "96%", background: "#b3ccff", margin: "2%", padding: 0}}>
+                <div style={{display: "inline-block", width: "50%"}}>
+                    <p>{authorName} asks:</p>
+                    <img
+                        src={authorAvatarURL}
+                        alt={`Avatar of name ${authorName}`}
+                        className='avatar'
+                        style={{width:100}}
+                    />
+                </div>
+                <div style={{display: "inline-block", width: "50%"}}> 
+                    <p>Would you rather:</p>
+                    <p>... {optionOneText} ...</p>
+                    <button>View poll</button>
+                </div>
             </li>
         )
     }
 }
 
-class Answered extends Component {
+class Questions extends Component {
 
     render() {
         return (
             <ul>
                 {
-                    this.props.answeredQuestions.map((answeredQuestion) => (
-                        <AnsweredQuestion
-                            answeredQuestion={answeredQuestion}
-                        />
-                    ))
-                }
-            </ul>
-        )
-    }
-}
-
-class UnansweredQuestion extends Component {
-
-    render() {
-        const { unansweredQuestion } = this.props
-        return (
-            <li key={unansweredQuestion.id}>
-                <p>Would you rather:</p>
-                <p>{unansweredQuestion.optionOne.text}</p>
-                <p>or</p>
-                <p>{unansweredQuestion.optionTwo.text}</p>
-            </li>
-        )
-    }
-}
-
-class Unanswered extends Component {
-
-    render() {
-        return (
-            <ul>
-                {
-                    this.props.unansweredQuestions.map((unansweredQuestion) => (
-                        <UnansweredQuestion
-                            unansweredQuestion={unansweredQuestion}
+                    this.props.questions.map((detailedQuestion) => (
+                        <Question
+                            key={detailedQuestion.id}
+                            detailedQuestion={detailedQuestion}
                         />
                     ))
                 }
@@ -91,7 +73,7 @@ class Unanswered extends Component {
 class Dashboard extends Component {
 
     state = {
-        answeredDisplayed: true
+        answeredDisplayed: false
     }
 
     _toggleTab = (e) => {
@@ -109,11 +91,22 @@ class Dashboard extends Component {
         const answeredQuestionIds = Object.keys(answers)
         const answeredQuestions = answeredQuestionIds
             .map((id) => questions[id])
-            .map((question) => [question, answers[question.id]])
+            .map((question) => ({
+                id: question.id,
+                optionOneText: question.optionOne.text,
+                authorAvatarURL: users[question.author].avatarURL,
+                authorName: users[question.author].name
+            }))
 
         const unansweredQuestions = Object.keys(questions)
             .filter((qId) => answers[qId] === undefined)
             .map((unansweredQuestionId) => questions[unansweredQuestionId])
+            .map((question) => ({
+                id: question.id,
+                optionOneText: question.optionOne.text,
+                authorAvatarURL: users[question.author].avatarURL,
+                authorName: users[question.author].name
+            }))
 
         return (
             <div className="questionsContainer">
@@ -124,15 +117,11 @@ class Dashboard extends Component {
                     />
                     {
                         this.state.answeredDisplayed
-                            ? <Answered
-                                authedUserId={authedUserId}
-                                answeredQuestions={answeredQuestions}
-                                users={users}
+                            ? <Questions
+                                questions={answeredQuestions}
                             />
-                            : <Unanswered
-                                authedUserId={authedUserId}
-                                unansweredQuestions={unansweredQuestions}
-                                users={users}
+                            : <Questions
+                                questions={unansweredQuestions}
                             />
                     }
                 </div>
