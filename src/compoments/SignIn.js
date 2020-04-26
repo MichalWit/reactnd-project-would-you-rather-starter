@@ -5,32 +5,53 @@ import { setSignedInUser } from '../actions/authedUser'
 class SignIn extends Component {
 
     state = {
-        authedUserId: null
+        selectedUserId: null,
+        selectedUserAvatarURL: "",
+        selectedUserName: ""
     }
 
     _handleChange = (e) => {
         e.preventDefault()
 
+        const selectedUserId = e.target.value
+        const selectedUser = this.props.users[selectedUserId]
+
         this.setState({
-            authedUserId: e.target.value
+            selectedUserId: selectedUser.id,
+            avatselectedUserAvatarURLarURL: selectedUser.avatarURL,
+            selectedUserName: selectedUser.name
         })
     }
 
     _handleSubmit = (e) => {
         e.preventDefault()
 
-        this.props.dispatch(setSignedInUser(this.state.authedUserId))
+        this.props.dispatch(setSignedInUser(this.state.selectedUserId))
     }
 
     render() {
         const { users } = this.props
-        const userKeys = Object.keys(users)
+        const selectedUser = users[this.state.selectedUserId]
         return (
             <div>
+                <div>
+                    {
+                        selectedUser
+                            ? <React.Fragment>
+                                <p>{selectedUser.name}</p>
+                                <img
+                                    src={selectedUser.avatarURL}
+                                    alt={`Avatar of name ${selectedUser.name}`}
+                                    className='avatar'
+                                />
+                            </React.Fragment>
+                            : <div>User is not selected</div>
+                    }
+                </div>
                 <form onSubmit={this._handleSubmit}>
                     <select onChange={this._handleChange}>
                         {
-                            userKeys.map((userId) => users[userId]).map((user) => (
+                            Object.values(users).map((user) => (
                                 <option key={user.id} value={user.id}>{user.name}</option>
                             ))
                         }
@@ -38,23 +59,9 @@ class SignIn extends Component {
                     <button
                         type='submit'
                         onSubmit={this._handleSubmit}
-                        disabled={this.state.authedUserId===null}
+                        disabled={this.state.selectedUserId===null}
                     >Sign in with selected user</button>
                 </form>
-                <ul>
-                {
-                    userKeys.map((userId) => users[userId]).map((user) => (
-                        <li key={user.id}>
-                            <p>{user.name}</p>
-                            <img
-                                src={user.avatarURL}
-                                alt={`Avatar of name ${user.name}`}
-                                className='avatar'
-                            />
-                        </li>
-                    ))
-                }
-                </ul>
             </div>
         )
     }
