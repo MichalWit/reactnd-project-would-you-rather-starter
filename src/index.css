@@ -77,6 +77,11 @@ li {
   height: 100px;
 }
 
+.answerTab {
+  display: inline-block;
+  padding: 10px;
+}
+
 .nav {
   background: #0040ff;
   border: 2px solid #003366;
