@@ -3,25 +3,36 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setSignedInUser } from '../actions/authedUser'
 
-class Nav extends Component {
+function NavTab(props) {
+    return <div className='navTab'>{props.label}</div>
+}
+
+class NavUserSection extends React.Component {
 
     _handlSignOut = (e) => {
         this.props.dispatch(setSignedInUser(null))
     }
 
     render() {
+        return <div className='navUserSection'>
+            <span>Hi {this.props.authedUserId}  </span>
+            <span className='logOutBtn' onClick={this._handlSignOut}>(Log out)</span>
+        </div>
+    }
+}
+
+class Nav extends Component {
+
+    render() {
         return (
-            <div>
-                <ul>
-                    <Link to='/'>Dashboard</Link>
-                    <span>  </span>
-                    <Link to='/newquestion'>new question</Link>
-                    <span>  </span>
-                    <Link to='/leaderboard'>leader board</Link>
-                    <span>  </span>
-                    <span>Hi {this.props.authedUserId}  </span>
-                    <button onClick={this._handlSignOut}>Log out</button>
-                </ul>
+            <div className='nav'>
+                <Link to='/'><NavTab label='Dashboard'/></Link>
+                <Link to='/newquestion'><NavTab label='new question'/></Link>
+                <Link to='/leaderboard'><NavTab label='leader board'/></Link>
+                <NavUserSection 
+                    authedUserId={this.props.authedUserId}
+                    dispatch={this.props.dispatch}
+                />
             </div>
         )
     }

@@ -7,7 +7,8 @@ body {
 
 a {
   text-decoration: none;
-  color: #252525;
+  font-weight: bold;
+  color: white;
 }
 
 .container {
@@ -74,4 +75,26 @@ li {
   padding: 10px;
   font-size: 15px;
   height: 100px;
+}
+
+.nav {
+  background: #0040ff;
+  border: 2px solid #003366;
+  color: white;
+}
+
+.navTab {
+  display: inline-block;
+  padding: 10px;
+}
+
+.navUserSection {
+  display: inline-block;
+  padding: 10px;
+  font-weight: bold;
+  float: right;
+}
+
+.logOutBtn {
+  font-weight: bold;
 }
