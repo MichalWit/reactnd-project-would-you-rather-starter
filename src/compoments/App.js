@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     const { authedUserId } = this.props
     return (
-      <div>
+      <div className='container'>
         <BrowserRouter>
           {
             authedUserId
