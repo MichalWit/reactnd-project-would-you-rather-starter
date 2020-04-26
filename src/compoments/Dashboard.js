@@ -1,6 +1,44 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+class QuestionLabel extends Component {
+
+    render() {
+        const { answeredDisplayed, toggleTab } = this.props
+        return (
+            <div>
+                <h3
+                    className={`answerTab ${answeredDisplayed ? "activeAnswerTab" : ""}`}
+                    onClick={!answeredDisplayed ? toggleTab : null}
+                >Answered</h3>
+                <h3
+                    className={`answerTab ${!answeredDisplayed ? "activeAnswerTab" : ""}`}
+                    onClick={answeredDisplayed ? toggleTab : null}
+                >Unanswered</h3>
+            </div>
+        )
+    }
+}
+
+class AnsweredQuestion extends Component {
+
+    render() {
+        const { answeredQuestion } = this.props
+        const question = answeredQuestion[0]
+        const answer = answeredQuestion[1]
+        return (
+            <li key={question.id}>
+                <p>Would you rather:</p>
+                <p>{question.optionOne.text}</p>
+                <p>or</p>
+                <p>{question.optionTwo.text}</p>
+                <p>Answered:</p>
+                <p>{answer}</p>
+            </li>
+        )
+    }
+}
+
 class Answered extends Component {
 
     render() {
@@ -8,17 +46,27 @@ class Answered extends Component {
             <ul>
                 {
                     this.props.answeredQuestions.map((answeredQuestion) => (
-                        <li key={answeredQuestion[0].id}>
-                            <p>Would you rather:</p>
-                            <p>{answeredQuestion[0].optionOne.text}</p>
-                            <p>or</p>
-                            <p>{answeredQuestion[0].optionTwo.text}</p>
-                            <p>Answered:</p>
-                            <p>{answeredQuestion[1]}</p>
-                        </li>
+                        <AnsweredQuestion
+                            answeredQuestion={answeredQuestion}
+                        />
                     ))
                 }
             </ul>
+        )
+    }
+}
+
+class UnansweredQuestion extends Component {
+
+    render() {
+        const { unansweredQuestion } = this.props
+        return (
+            <li key={unansweredQuestion.id}>
+                <p>Would you rather:</p>
+                <p>{unansweredQuestion.optionOne.text}</p>
+                <p>or</p>
+                <p>{unansweredQuestion.optionTwo.text}</p>
+            </li>
         )
     }
 }
@@ -30,12 +78,9 @@ class Unanswered extends Component {
             <ul>
                 {
                     this.props.unansweredQuestions.map((unansweredQuestion) => (
-                        <li key={unansweredQuestion.id}>
-                            <p>Would you rather:</p>
-                            <p>{unansweredQuestion.optionOne.text}</p>
-                            <p>or</p>
-                            <p>{unansweredQuestion.optionTwo.text}</p>
-                        </li>
+                        <UnansweredQuestion
+                            unansweredQuestion={unansweredQuestion}
+                        />
                     ))
                 }
             </ul>
@@ -50,21 +95,9 @@ class Dashboard extends Component {
     }
 
     _toggleTab = (e) => {
-        this.setState((currentState) => ({
-            answeredDisplayed: !currentState.answeredDisplayed
+        this.setState((state) => ({
+            answeredDisplayed: !state.answeredDisplayed
         }))
-    }
-
-    _showAnswered = (e) => {
-        this.setState({
-            answeredDisplayed: true
-        })
-    }
-
-    _showUnanswered = (e) => {
-        this.setState({
-            answeredDisplayed: false
-        })
     }
 
     render() {
@@ -83,29 +116,26 @@ class Dashboard extends Component {
             .map((unansweredQuestionId) => questions[unansweredQuestionId])
 
         return (
-            <div>
-                <div>
-                    <h2 className='answerTab' onClick={this._showAnswered}>Answered</h2>
-                    <h2 className='answerTab' onClick={this._showUnanswered}>Unanswered</h2>
-                </div>
-                {
-                    this.state.answeredDisplayed
-                        ? <React.Fragment>
-                            
-                            <Answered
+            <div className="questionsContainer">
+                <div className="questions">
+                    <QuestionLabel
+                        answeredDisplayed={this.state.answeredDisplayed}
+                        toggleTab={this._toggleTab}
+                    />
+                    {
+                        this.state.answeredDisplayed
+                            ? <Answered
                                 authedUserId={authedUserId}
                                 answeredQuestions={answeredQuestions}
                                 users={users}
                             />
-                        </React.Fragment>
-                        : <React.Fragment>
-                            <Unanswered
+                            : <Unanswered
                                 authedUserId={authedUserId}
                                 unansweredQuestions={unansweredQuestions}
                                 users={users}
                             />
-                        </React.Fragment>
-                }
+                    }
+                </div>
             </div>
         )
     }

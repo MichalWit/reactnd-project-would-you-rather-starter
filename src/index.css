@@ -77,9 +77,26 @@ li {
   height: 100px;
 }
 
-.answerTab {
+.questionsContainer {
+  width: 100%;
+  text-align: center;
+}
+
+.questions {
+  width: 90%;
   display: inline-block;
-  padding: 10px;
+}
+
+.answerTab {
+  width: 48%;
+  padding: 1%;
+  display: inline-block;
+  text-align: center;
+  background-color: #b3ccff;
+}
+
+.activeAnswerTab {
+  background: #0040ff;
 }
 
 .nav {
