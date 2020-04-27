@@ -22,8 +22,7 @@ class NavUserSection extends React.Component {
                     <img
                         src={this.props.authedUser.avatarURL}
                         alt={`Avatar of name ${this.props.authedUser.name}`}
-                        className='avatar'
-                        className="miniAvatar"
+                        className="avatar miniAvatar"
                     />
                 </div>
                 <div className="centerContainerElement">

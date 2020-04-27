@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import AuthorAsks from './shared/AuthorAsks'
 
 class QuestionLabel extends Component {
 
@@ -27,24 +28,26 @@ class Questions extends Component {
         return (
             <ul>
                 {
-                    this.props.questions.map((detailedQuestion) => (
-                        <li className="questionContainer">
-                            <div className="question">
-                                <p>{detailedQuestion.authorName} asks:</p>
-                                <img
-                                    src={detailedQuestion.authorAvatarURL}
-                                    alt={`Avatar of name ${detailedQuestion.authorName}`}
-                                    className='avatar'
-                                    className="mediumAvatar"
-                                />
-                            </div>
+                    this.props.questions.map((detailedQuestion) => {
+
+                        const {
+                            id,
+                            optionOneText,
+                            authorName,
+                            authorAvatarURL
+                        } = detailedQuestion
+
+                        return <li key="id" className="questionContainer">
+                            <AuthorAsks
+                                author={{name: authorName, avatarURL: authorAvatarURL}}
+                            />
                             <div className="question"> 
                                 <p>Would you rather:</p>
-                                <p>... {detailedQuestion.optionOneText} ...</p>
-                                <Link to={`/questions/${detailedQuestion.id}`}><button>View poll</button></Link>
+                                <p>... {optionOneText} ...</p>
+                                <Link to={`/questions/${id}`}><button>View poll</button></Link>
                             </div>
                         </li>
-                    ))
+                    })
                 }
             </ul>
         )
