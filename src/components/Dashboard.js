@@ -37,7 +37,7 @@ class Questions extends Component {
                             authorAvatarURL
                         } = detailedQuestion
 
-                        return <li key="id" className="questionContainer">
+                        return <li key={id} className="questionContainer">
                             <AuthorAsks
                                 author={{name: authorName, avatarURL: authorAvatarURL}}
                             />
