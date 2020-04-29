@@ -12,6 +12,10 @@ export function questions(state = {}, action) {
                 ...state,
                 [action.questionId]: {
                     ...state[action.questionId],
+                    [action.answer]:{
+                        votes: ,
+                        text: ,
+                    },
                     votes: [state[action.questionId].votes].concat([action.authedUserId])
                 }
             }

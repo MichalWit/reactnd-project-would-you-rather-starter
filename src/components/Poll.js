@@ -24,7 +24,7 @@ class Poll extends Component {
         if (answer !== OPTIONS.o1 && answer !== OPTIONS.o2) {
             alert("Please choose an answer!")
         } else {
-            this.props.dispatch(questionAnswered({authedUserId, questionId, answer}))
+            this.props.dispatch(questionAnswered({questionId, answer, authedUserId}))
         }
     }
 
