@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import AuthorAsks from './shared/AuthorAsks'
+import { questionAnswered } from '../actions/questions'
 
 export const OPTIONS = {
     o1: "optionOne",
@@ -23,8 +24,7 @@ class Poll extends Component {
         if (answer !== OPTIONS.o1 && answer !== OPTIONS.o2) {
             alert("Please choose an answer!")
         } else {
-            //this.props.dispatch(questionAnswered({authedUserId, questionId, answer}))
-            console.log("selected: ", JSON.stringify({authedUserId, questionId, answer}))
+            this.props.dispatch(questionAnswered({authedUserId, questionId, answer}))
         }
     }
 
