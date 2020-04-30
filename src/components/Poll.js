@@ -8,7 +8,7 @@ export const OPTIONS = {
     o2: "optionTwo"
 }
 
-class Poll extends Component {
+class UnansweredPoll extends Component {
 
     state = {
         selectedOption: OPTIONS.o1
@@ -72,15 +72,74 @@ class Poll extends Component {
     }
 }
 
+class AnsweredPoll extends Component {
+
+    render() {
+        const { question, author, user } = this.props
+        const optionOneAnswers = question.optionOne.votes.length
+        const optionTwoAnswers = question.optionTwo.votes.length
+        const allAnswers = optionOneAnswers + optionTwoAnswers
+
+        const optionOnePercentage = (optionOneAnswers / allAnswers * 100) + "%"
+        const optionTwoPercentage = (optionTwoAnswers / allAnswers * 100) + "%"
+
+        const answer = user.answers[question.id]
+        // FIXME = answer is wrongly resolved here! - check after switching to 'users'
+        const isOptionOneChosen = answer === OPTIONS.o1
+        return (
+            <div>
+                <AuthorAsks author={author} asked/>
+                <p>Would you rather</p>
+                    <div className={isOptionOneChosen ? "answeredOption" : ""}>
+                        <span>{question.optionOne.text}</span>
+                        {isOptionOneChosen && <span style={{marginLeft: "4px"}}><b>(Your answer)</b></span>}
+                        <p>{optionOneAnswers} out of {allAnswers} answers. ({optionOnePercentage})</p>
+                    </div>
+                    <p>or</p>
+                    <div className={!isOptionOneChosen ? "answeredOption" : ""}>
+                        {question.optionTwo.text}
+                        {!isOptionOneChosen && <span style={{marginLeft: "4px"}}><b>(Your answer)</b></span>}
+                        <p>{optionTwoAnswers} out of {allAnswers} answers. ({optionTwoPercentage})</p>
+                    </div>
+            </div>
+        )
+    }
+}
+
+class Poll extends Component {
+
+    render() {
+        const { question, author, user } = this.props
+        // TODO - move the 'question' to common place?
+        const userAnswer = (user.answers)[question.id]
+        return (
+            userAnswer
+                ? <AnsweredPoll
+                    authedUserId={user.id}
+                    question={question}
+                    author={author}
+                    user={user}
+                />
+                : <UnansweredPoll
+                    authedUserId={user.id}
+                    question={question}
+                    author={author}
+                    dispatch={this.props.dispatch}
+                />
+        )
+    }
+}
+
 function mapStateToProps(state, props) {
     const { id } = props.match.params
     const { authedUserId, questions, users } = state
     const question = questions[id]
     const author = users[question.author]
+    const user = users[authedUserId]
     return {
-        authedUserId,
         question,
-        author
+        author,
+        user
     }
 }
 
