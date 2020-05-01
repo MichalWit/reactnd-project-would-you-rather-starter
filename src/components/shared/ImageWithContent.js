@@ -10,7 +10,7 @@ export default function ImageWithContent(props) {
             author={{name, avatarURL}} asked={asked}
         />
         <div className="question"> 
-            {children}
+            <div className="containerWithTextOnTheLeft">{children}</div>
         </div>
     </div>
 }

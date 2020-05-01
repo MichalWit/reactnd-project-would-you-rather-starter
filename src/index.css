@@ -56,25 +56,13 @@ a {
   font-weight: bold;
 }
 
-.nav ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+li {
+  list-style-type: none;
   text-decoration: none;
-}
-
-.nav li:first-child {
-  padding-left: 0;
 }
 
 ul {
-  padding-left: 0;
-}
-
-li {
-  list-style-type: none;
-  padding: 10px;
-  text-decoration: none;
+  padding-inline-start: 0px;
 }
 
 .textarea {
@@ -113,6 +101,7 @@ li {
 }
 
 .questionContainer {
+  text-align: center;
   width: 96%;
   background: #b3ccff;
   margin: 2%;
@@ -121,8 +110,13 @@ li {
 
 .question {
   display: inline-block;
+  vertical-align: middle;
   width: 44%;
   margin: 3%;
+}
+
+.containerWithTextOnTheLeft {
+  text-align: left;
 }
 
 .answerTab {
