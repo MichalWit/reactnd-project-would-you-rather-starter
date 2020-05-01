@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { handleAddNewQuestion } from '../actions/questions'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 class NewQuestion extends Component {
 
@@ -26,7 +27,8 @@ class NewQuestion extends Component {
         this.props.dispatch(handleAddNewQuestion(
             optionOne,
             optionTwo,
-            this.props.authedUserId
+            this.props.authedUserId,
+            this.props.history
         ))
     }
 
@@ -59,4 +61,4 @@ class NewQuestion extends Component {
     }
 }
 
-export default connect((state) => ({authedUserId: state.authedUserId}))(NewQuestion)
+export default withRouter(connect((state) => ({authedUserId: state.authedUserId}))(NewQuestion))

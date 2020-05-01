@@ -42,7 +42,7 @@ function addNewQuestion(question) {
     }
 }
 
-export function handleAddNewQuestion(optionOne, optionTwo, authedUserId) {
+export function handleAddNewQuestion(optionOne, optionTwo, authedUserId, history) {
     
     return (dispatch) => {
         _saveQuestion(
@@ -53,6 +53,7 @@ export function handleAddNewQuestion(optionOne, optionTwo, authedUserId) {
             }
         ).then((question) => {
             dispatch(addNewQuestion(question))
+            history.push("/")
         })
     }
 }
