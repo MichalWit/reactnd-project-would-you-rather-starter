@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ImageWithContent from './shared/ImageWithContent'
-import AuthorAsks from './shared/AuthorAsks'
-import { questionAnswered } from '../actions/questions'
+import { handleQuestionAnswered } from '../actions/questions'
 
 export const OPTIONS = {
     o1: "optionOne",
@@ -25,7 +24,7 @@ class UnansweredPoll extends Component {
         if (answer !== OPTIONS.o1 && answer !== OPTIONS.o2) {
             alert("Please choose an answer!")
         } else {
-            this.props.dispatch(questionAnswered({questionId, answer, authedUserId}))
+            this.props.dispatch(handleQuestionAnswered({questionId, answer, authedUserId}))
         }
     }
 
@@ -37,7 +36,6 @@ class UnansweredPoll extends Component {
 
     render() {
         const { question, author } = this.props
-        // TODO - move the 'question' to common place?
         return (
             <ImageWithContent
                 name={author.name}
