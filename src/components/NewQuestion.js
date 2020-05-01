@@ -31,7 +31,7 @@ class NewQuestion extends Component {
 
     render() {
         return (
-            <div>
+            <div className="questionContainer">
                 <h2>Create new question</h2>
                 <div>Would you rather:</div>
                 <form onSubmit={this._handleSubmit}>
@@ -44,12 +44,14 @@ class NewQuestion extends Component {
                         value={this.state.optionB}
                         onChange={this._handleOptionBChange}
                     />
-                    <button
-                        onSubmit={this._handleSubmit}
-                        type="submit"
-                    >
-                        Submit
-                    </button>
+                    <div>
+                        <button
+                            onSubmit={this._handleSubmit}
+                            type="submit"
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </form>
             </div>
         )

@@ -50,7 +50,7 @@ class Nav extends Component {
                     <Link to='/'><NavTab label='Dashboard'/></Link>
                 </div>
                 <div className="centerContainerElement">
-                    <Link to='/newquestion'><NavTab label='new question'/></Link>
+                    <Link to='/add'><NavTab label='new question'/></Link>
                 </div>
                 <div className="centerContainerElement">
                     <Link to='/leaderboard'><NavTab label='leader board'/></Link>
