@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import LoadingBar from 'react-redux-loading'
 import SignIn from './SignIn'
 import Dashboard from './Dashboard'
 import NewQuestion from './NewQuestion'
@@ -20,18 +21,21 @@ class App extends React.Component {
     return (
       <div className='container'>
         <BrowserRouter>
-          {
-            authedUserId
-              ? <React.Fragment>
-                  <Nav/>
-                  <Route path='/' exact component={Dashboard}/>
-                  <Route path='/signin' component={SignIn}/>
-                  <Route path='/add' component={NewQuestion}/>
-                  <Route path='/leaderboard' component={LeaderBoard}/>
-                  <Route path='/questions/:id' component={Poll}/>
-                </React.Fragment>
-              : <Route path='/' component={SignIn}/>
-          }
+          <React.Fragment>
+            <LoadingBar/>
+            {
+              authedUserId
+                ? <React.Fragment>
+                    <Nav/>
+                    <Route path='/' exact component={Dashboard}/>
+                    <Route path='/signin' component={SignIn}/>
+                    <Route path='/add' component={NewQuestion}/>
+                    <Route path='/leaderboard' component={LeaderBoard}/>
+                    <Route path='/questions/:id' component={Poll}/>
+                  </React.Fragment>
+                : <Route path='/' component={SignIn}/>
+            }
+          </React.Fragment>
         </BrowserRouter>
       </div>
     )

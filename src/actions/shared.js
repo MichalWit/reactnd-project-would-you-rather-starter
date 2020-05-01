@@ -1,10 +1,11 @@
 import { _getUsers, _getQuestions } from '../utils/_DATA'
 import { receiveUsers } from './users'
 import { receiveQuestions } from './questions'
+import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function handleInitialData() {
     return (dispatch) => {
-        // TODO show loading bar
+        dispatch(showLoading())
         Promise
             .all(
                 [
@@ -20,12 +21,7 @@ export function handleInitialData() {
             ) => {
                 dispatch(receiveUsers(users))
                 dispatch(receiveQuestions(questions))
-
-                console.log("received users")
-                console.log(users)
-                console.log("received questions")
-                console.log(questions)
-                // TODO hide loading bar
+                dispatch(hideLoading())
             })
     }
 }
