@@ -3,11 +3,11 @@ import AuthorAsks from './AuthorAsks'
 
 export default function ImageWithContent(props) {
 
-    const {name, avatarURL, children} = props
+    const {name, avatarURL, asked, children} = props
 
     return <div className="questionContainer">
         <AuthorAsks
-            author={{name, avatarURL}}
+            author={{name, avatarURL}} asked={asked}
         />
         <div className="question"> 
             {children}

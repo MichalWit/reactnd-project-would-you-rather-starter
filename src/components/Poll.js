@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import ImageWithContent from './shared/ImageWithContent'
 import AuthorAsks from './shared/AuthorAsks'
 import { questionAnswered } from '../actions/questions'
 
@@ -38,12 +39,13 @@ class UnansweredPoll extends Component {
         const { question, author } = this.props
         // TODO - move the 'question' to common place?
         return (
-            <div>
-                <AuthorAsks author={author}/>
-                <p>Would you rather</p>
+            <ImageWithContent
+                name={author.name}
+                avatarURL={author.avatarURL}
+            >
+                <div>Would you rather</div>
                 <form>
                     <div className="radio">
-                    <label>
                         <input
                             type="radio"
                             value={OPTIONS.o1}
@@ -51,11 +53,9 @@ class UnansweredPoll extends Component {
                             onChange={this._handleChange}
                         />
                         {question.optionOne.text}
-                    </label>
                     </div>
-                    <p>or</p>
+                    <div>or</div>
                     <div className="radio">
-                    <label>
                         <input
                             type="radio"
                             value={OPTIONS.o2}
@@ -63,45 +63,95 @@ class UnansweredPoll extends Component {
                             onChange={this._handleChange}
                         />
                         {question.optionTwo.text}
-                    </label>
                     </div>
                 </form>
                 <button onClick={this._handleSubmit}>Submit</button>
-            </div>
+            </ImageWithContent>
         )
     }
 }
 
+function AnsweredOption(props) {
+
+    const { isChosen, questionText, optionStats, allAnswers } = props
+
+    return (
+        <div className={isChosen ? "answeredOption" : ""}>
+            <span>{questionText}</span>
+            {isChosen && <span style={{marginLeft: "4px"}}><b>(Your answer)</b></span>}
+            <div>{optionStats.number} out of {allAnswers} answers. ({optionStats.percentage})</div>
+        </div>
+    )
+}
+
 class AnsweredPoll extends Component {
 
-    render() {
-        const { question, author, user } = this.props
+    _allAnswersNumber(question) {
         const optionOneAnswers = question.optionOne.votes.length
         const optionTwoAnswers = question.optionTwo.votes.length
         const allAnswers = optionOneAnswers + optionTwoAnswers
+        return {
+            allAnswers,
+            optionOneAnswers,
+            optionTwoAnswers
+        }
+    }
 
-        const optionOnePercentage = (optionOneAnswers / allAnswers * 100) + "%"
-        const optionTwoPercentage = (optionTwoAnswers / allAnswers * 100) + "%"
+    _computePercentage(optionAnswerNumber, allAnswers) {
+        return (optionAnswerNumber / allAnswers * 100) + "%"
+    }
+
+    _compute(question) {
+        const {
+            allAnswers,
+            optionOneAnswers,
+            optionTwoAnswers
+        } = this._allAnswersNumber(question)
+        const optionOnePercentage = this._computePercentage(optionOneAnswers, allAnswers)
+        const optionTwoPercentage = this._computePercentage(optionTwoAnswers, allAnswers)
+        return {
+            allAnswers,
+            one: {
+                number: optionOneAnswers,
+                percentage: optionOnePercentage
+            },
+            two: {
+                number: optionTwoAnswers,
+                percentage: optionTwoPercentage
+            }
+        }
+    }
+
+    render() {
+        const { question, author, user } = this.props
+        const statistics = this._compute(question)
+        const { allAnswers, one, two } = statistics
 
         const answer = user.answers[question.id]
-        // FIXME = answer is wrongly resolved here! - check after switching to 'users'
         const isOptionOneChosen = answer === OPTIONS.o1
         return (
-            <div>
-                <AuthorAsks author={author} asked/>
-                <p>Would you rather</p>
-                    <div className={isOptionOneChosen ? "answeredOption" : ""}>
-                        <span>{question.optionOne.text}</span>
-                        {isOptionOneChosen && <span style={{marginLeft: "4px"}}><b>(Your answer)</b></span>}
-                        <p>{optionOneAnswers} out of {allAnswers} answers. ({optionOnePercentage})</p>
-                    </div>
-                    <p>or</p>
-                    <div className={!isOptionOneChosen ? "answeredOption" : ""}>
-                        {question.optionTwo.text}
-                        {!isOptionOneChosen && <span style={{marginLeft: "4px"}}><b>(Your answer)</b></span>}
-                        <p>{optionTwoAnswers} out of {allAnswers} answers. ({optionTwoPercentage})</p>
-                    </div>
-            </div>
+            <ImageWithContent
+                name={author.name}
+                avatarURL={author.avatarURL}
+                asked
+            >
+                <div>
+                    <div>Would you rather</div>
+                    <AnsweredOption
+                        isChosen={isOptionOneChosen}
+                        questionText={question.optionOne.text}
+                        optionStats={one}
+                        allAnswers={allAnswers}
+                    />
+                    <div>or</div>
+                    <AnsweredOption
+                        isChosen={!isOptionOneChosen}
+                        questionText={question.optionTwo.text}
+                        optionStats={two}
+                        allAnswers={allAnswers}
+                    />
+                </div>
+            </ImageWithContent>
         )
     }
 }

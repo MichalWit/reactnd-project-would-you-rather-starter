@@ -6,7 +6,7 @@ export default function AuthorAsks(props) {
     
     return (
         <div className="question">
-            <p>{author.name} {asked ? "asked" : "asks"}:</p>
+            <div>{author.name} {asked ? "asked" : "asks"}:</div>
             <img
                 src={author.avatarURL}
                 alt={`Avatar of name ${author.name}`}

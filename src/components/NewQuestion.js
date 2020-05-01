@@ -33,13 +33,13 @@ class NewQuestion extends Component {
         return (
             <div>
                 <h2>Create new question</h2>
-                <p>Would you rather:</p>
+                <div>Would you rather:</div>
                 <form onSubmit={this._handleSubmit}>
                     <textarea
                         value={this.state.optionA}
                         onChange={this._handleOptionAChange}
                     />
-                    <p>Or</p>
+                    <div>Or</div>
                     <textarea
                         value={this.state.optionB}
                         onChange={this._handleOptionBChange}

@@ -42,8 +42,8 @@ class Questions extends Component {
                                 name={authorName}
                                 avatarURL={authorAvatarURL}
                             >
-                                <p>Would you rather:</p>
-                                <p>... {optionOneText} ...</p>
+                                <div>Would you rather:</div>
+                                <div>... {optionOneText} ...</div>
                                 <Link to={`/questions/${id}`}><button>View poll</button></Link>
                             </ImageWithContent>
                         </li>

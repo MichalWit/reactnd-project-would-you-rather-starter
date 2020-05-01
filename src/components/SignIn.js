@@ -38,7 +38,7 @@ class SignIn extends Component {
                     {
                         selectedUser
                             ? <React.Fragment>
-                                <p>{selectedUser.name}</p>
+                                <div>{selectedUser.name}</div>
                                 <img
                                     src={selectedUser.avatarURL}
                                     alt={`Avatar of name ${selectedUser.name}`}

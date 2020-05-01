@@ -90,6 +90,11 @@ li {
   text-align: center;
 }
 
+.unansweredPoll {
+  width: 70%;
+  display: inline-block;
+}
+
 .centerContainerElement {
   display: inline-block;
   height: 60px;
@@ -116,7 +121,8 @@ li {
 
 .question {
   display: inline-block;
-  width: 50%
+  width: 44%;
+  margin: 3%;
 }
 
 .answerTab {
