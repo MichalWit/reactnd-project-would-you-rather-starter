@@ -41,6 +41,7 @@ class Questions extends Component {
                             <ImageWithContent
                                 name={authorName}
                                 avatarURL={authorAvatarURL}
+                                label="asks"
                             >
                                 <div>Would you rather:</div>
                                 <div>... {optionOneText} ...</div>

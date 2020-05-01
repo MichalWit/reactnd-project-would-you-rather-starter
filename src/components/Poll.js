@@ -42,6 +42,7 @@ class UnansweredPoll extends Component {
             <ImageWithContent
                 name={author.name}
                 avatarURL={author.avatarURL}
+                label="asks"
             >
                 <div>Would you rather</div>
                 <form>
@@ -133,7 +134,7 @@ class AnsweredPoll extends Component {
             <ImageWithContent
                 name={author.name}
                 avatarURL={author.avatarURL}
-                asked
+                label="asked"
             >
                 <div>
                     <div>Would you rather</div>
