@@ -1,32 +1,33 @@
 import React, { Component } from 'react'
+import { handleAddNewQuestion } from '../actions/questions'
+import { connect } from 'react-redux'
 
 class NewQuestion extends Component {
 
     state = {
-        optionA: '',
-        optionB: ''
+        optionOne: '',
+        optionTwo: ''
     }
 
     _handleOptionAChange = (e) => {
         e.preventDefault()
-        this.setState({ optionA: e.target.value })
+        this.setState({ optionOne: e.target.value })
     }
 
     _handleOptionBChange = (e) => {
         e.preventDefault()
-        this.setState({ optionB: e.target.value })
+        this.setState({ optionTwo: e.target.value })
     }
 
     _handleSubmit = (e) => {
         e.preventDefault()
-        const optionA = this.state.optionA
-        const optionB = this.state.optionB
-        console.log("Dispatching 'add new question' ", JSON.stringify({optionA, optionB}))
-        this.setState({
-            optionA: '',
-            optionB: ''
-        })
-        // TODO: dispatch handleAddQuestion({optionA, optionB})
+        const optionOne = this.state.optionOne
+        const optionTwo = this.state.optionTwo
+        this.props.dispatch(handleAddNewQuestion(
+            optionOne,
+            optionTwo,
+            this.props.authedUserId
+        ))
     }
 
     render() {
@@ -36,12 +37,12 @@ class NewQuestion extends Component {
                 <div>Would you rather:</div>
                 <form onSubmit={this._handleSubmit}>
                     <textarea
-                        value={this.state.optionA}
+                        value={this.state.optionOne}
                         onChange={this._handleOptionAChange}
                     />
                     <div>Or</div>
                     <textarea
-                        value={this.state.optionB}
+                        value={this.state.optionTwo}
                         onChange={this._handleOptionBChange}
                     />
                     <div>
@@ -58,4 +59,4 @@ class NewQuestion extends Component {
     }
 }
 
-export default NewQuestion
+export default connect((state) => ({authedUserId: state.authedUserId}))(NewQuestion)

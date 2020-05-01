@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS, QUESTION_ANSWERED } from '../actions/questions'
+import { RECEIVE_QUESTIONS, QUESTION_ANSWERED, ADD_NEW_QUESTION } from '../actions/questions'
 
 const buildOptionVotes = (optionToChange, authedUserId) => {
     return optionToChange.votes.concat([authedUserId])
@@ -23,6 +23,11 @@ export function questions(state = {}, action) {
                         votes: buildOptionVotes(optionToChange, action.authedUserId)
                     }
                 }
+            }
+        case ADD_NEW_QUESTION:
+            return {
+                ...state,
+                [action.question.id]: action.question
             }
         default:
             return state
