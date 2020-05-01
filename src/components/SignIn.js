@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setSignedInUser } from '../actions/authedUser'
+import ImageWithContent from './shared/ImageWithContent'
 
 class SignIn extends Component {
 
@@ -29,39 +30,50 @@ class SignIn extends Component {
         this.props.dispatch(setSignedInUser(this.state.selectedUserId))
     }
 
+    _resolveUserData = (selectedUser) => {
+        if (selectedUser !== undefined) {
+            return {
+                name: selectedUser.name,
+                avatarURL: selectedUser.avatarURL,
+                label: "Selected user"
+            }
+        } else {
+            return {
+                name: "",
+                avatarURL: "http://localhost:3000/avatars/unknown.svg",
+                label: "User is not selected"
+            }
+        }
+    }
+
     render() {
         const { users } = this.props
         const selectedUser = users[this.state.selectedUserId]
+        const userData = this._resolveUserData(selectedUser)
         return (
             <div>
                 <div>
-                    {
-                        selectedUser
-                            ? <React.Fragment>
-                                <div>{selectedUser.name}</div>
-                                <img
-                                    src={selectedUser.avatarURL}
-                                    alt={`Avatar of name ${selectedUser.name}`}
-                                    className='mediumAvatar'
-                                />
-                            </React.Fragment>
-                            : <div>User is not selected</div>
-                    }
+                    <ImageWithContent
+                        name={userData.name}
+                        avatarURL={userData.avatarURL}
+                        label={userData.label}
+                    >
+                        <form onSubmit={this._handleSubmit}>
+                            <select onChange={this._handleChange}>
+                                {
+                                    Object.values(users).map((user) => (
+                                        <option key={user.id} value={user.id}>{user.name}</option>
+                                    ))
+                                }
+                            </select>
+                            <button
+                                type='submit'
+                                onSubmit={this._handleSubmit}
+                                disabled={this.state.selectedUserId===null}
+                            >Sign in</button>
+                        </form>
+                    </ImageWithContent>
                 </div>
-                <form onSubmit={this._handleSubmit}>
-                    <select onChange={this._handleChange}>
-                        {
-                            Object.values(users).map((user) => (
-                                <option key={user.id} value={user.id}>{user.name}</option>
-                            ))
-                        }
-                    </select>
-                    <button
-                        type='submit'
-                        onSubmit={this._handleSubmit}
-                        disabled={this.state.selectedUserId===null}
-                    >Sign in with selected user</button>
-                </form>
             </div>
         )
     }
