@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import AuthorAsks from './shared/AuthorAsks'
+import ImageWithContent from './shared/ImageWithContent'
 
 class QuestionLabel extends Component {
 
@@ -37,15 +37,15 @@ class Questions extends Component {
                             authorAvatarURL
                         } = detailedQuestion
 
-                        return <li key={id} className="questionContainer">
-                            <AuthorAsks
-                                author={{name: authorName, avatarURL: authorAvatarURL}}
-                            />
-                            <div className="question"> 
+                        return <li key={id}>
+                            <ImageWithContent
+                                name={authorName}
+                                avatarURL={authorAvatarURL}
+                            >
                                 <p>Would you rather:</p>
                                 <p>... {optionOneText} ...</p>
                                 <Link to={`/questions/${id}`}><button>View poll</button></Link>
-                            </div>
+                            </ImageWithContent>
                         </li>
                     })
                 }
