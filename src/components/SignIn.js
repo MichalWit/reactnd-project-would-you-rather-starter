@@ -62,7 +62,7 @@ class SignIn extends Component {
                         <div className='genericCenterContainer'>
                             <form onSubmit={this._handleSubmit}>
                                 <div>
-                                    <select onChange={this._handleChange}>
+                                    <select onClick={this._handleChange}>
                                         {
                                             Object.values(users).map((user) => (
                                                 <option key={user.id} value={user.id}>{user.name}</option>
