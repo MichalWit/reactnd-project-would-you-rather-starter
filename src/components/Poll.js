@@ -159,23 +159,30 @@ class Poll extends Component {
 
     render() {
         const { question, author, user } = this.props
-        // TODO - move the 'question' to common place?
-        const userAnswer = (user.answers)[question.id]
-        return (
-            userAnswer
-                ? <AnsweredPoll
-                    authedUserId={user.id}
-                    question={question}
-                    author={author}
-                    user={user}
-                />
-                : <UnansweredPoll
-                    authedUserId={user.id}
-                    question={question}
-                    author={author}
-                    dispatch={this.props.dispatch}
-                />
-        )
+        if (question === undefined) {
+            return <div className="questionContainer">
+                <div className="question"> 
+                    404 - Not found
+                </div>
+            </div>
+        } else {
+            const userAnswer = (user.answers)[question.id]
+            return (
+                userAnswer
+                    ? <AnsweredPoll
+                        authedUserId={user.id}
+                        question={question}
+                        author={author}
+                        user={user}
+                    />
+                    : <UnansweredPoll
+                        authedUserId={user.id}
+                        question={question}
+                        author={author}
+                        dispatch={this.props.dispatch}
+                    />
+            )
+        }
     }
 }
 
@@ -183,7 +190,7 @@ function mapStateToProps(state, props) {
     const { id } = props.match.params
     const { authedUserId, questions, users } = state
     const question = questions[id]
-    const author = users[question.author]
+    const author = question ? users[question.author] : undefined
     const user = users[authedUserId]
     return {
         question,
