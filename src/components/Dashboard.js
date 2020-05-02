@@ -46,12 +46,15 @@ class Questions extends Component {
                                     avatarURL={authorAvatarURL}
                                     label="asks"
                                 >
-                                    <div>
-                                        <div>Would you rather:</div>
-                                        <div>... {optionOneText} ...</div>
-                                        <Link to={`/questions/${id}`}><button className='btn'>View poll</button></Link>
+                                    <div className="dashboardQuestion">
+                                        <div>
+                                            <div>Would you rather:</div>
+                                            <hr/>
+                                            <div>... {optionOneText} ...</div>
+                                            <Link to={`/questions/${id}`}><button className='btn'>View poll</button></Link>
+                                        </div>
+                                        <div className="questionDate">Asked on: {new Date(timestamp).toISOString().slice(0, 10)}</div>
                                     </div>
-                                    <div className="questionDate">Asked on: {new Date(timestamp).toISOString().slice(0, 10)}</div>
                                 </ImageWithContent>
                             </li>
                         })
