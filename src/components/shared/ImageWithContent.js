@@ -18,15 +18,21 @@ function LabeledImage(props) {
 
 export default function ImageWithContent(props) {
 
-    const {name, avatarURL, label, children} = props
+    const {name, avatarURL, imageLabel, rightPanelLabel, children} = props
 
     return <div className="outer">
-        <div class="middle">
+        <div className="middle">
             <LabeledImage
-                author={{name, avatarURL}} label={label}
+                author={{name, avatarURL}} label={imageLabel}
             />
             <div className="pollInnerRight"> 
-                {children}
+                <div className="dashboardQuestion">
+                    <div>
+                        <div>{rightPanelLabel ? rightPanelLabel : "Would you rather:"}</div>
+                        <hr/>
+                        <div>{children}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

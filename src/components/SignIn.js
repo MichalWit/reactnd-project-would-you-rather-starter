@@ -56,7 +56,8 @@ class SignIn extends Component {
                     <ImageWithContent
                         name={userData.name}
                         avatarURL={userData.avatarURL}
-                        label={userData.label}
+                        imageLabel={userData.label}
+                        rightPanelLabel="Please choose a user"
                     >
                         <div className='genericCenterContainer'>
                             <form onSubmit={this._handleSubmit}>

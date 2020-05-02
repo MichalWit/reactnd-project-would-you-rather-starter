@@ -40,9 +40,8 @@ class UnansweredPoll extends Component {
             <ImageWithContent
                 name={author.name}
                 avatarURL={author.avatarURL}
-                label="asks"
+                imageLabel="asks"
             >
-                <div>Would you rather</div>
                 <form>
                     <div className="radio">
                         <input
@@ -135,7 +134,6 @@ class AnsweredPoll extends Component {
                 label="asked"
             >
                 <div>
-                    <div>Would you rather</div>
                     <AnsweredOption
                         isChosen={isOptionOneChosen}
                         questionText={question.optionOne.text}
