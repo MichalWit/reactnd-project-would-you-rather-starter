@@ -74,10 +74,10 @@ function AnsweredOption(props) {
     const { isChosen, questionText, optionStats, allAnswers } = props
 
     return (
-        <div className={isChosen ? "answeredOption" : ""}>
-            <span>{questionText}</span>
-            {isChosen && <span style={{marginLeft: "4px"}}><b>(Your answer)</b></span>}
+        <div className={isChosen ? "answeredOption" : "unansweredOption"}>
+            <div>{questionText}</div>
             <div>{optionStats.number} out of {allAnswers} answers. ({optionStats.percentage})</div>
+            {isChosen && <div style={{marginLeft: "4px"}}><b>(Your answer)</b></div>}
         </div>
     )
 }
@@ -140,7 +140,7 @@ class AnsweredPoll extends Component {
                         optionStats={one}
                         allAnswers={allAnswers}
                     />
-                    <div>or</div>
+                    <div className='center'>OR</div>
                     <AnsweredOption
                         isChosen={!isOptionOneChosen}
                         questionText={question.optionTwo.text}

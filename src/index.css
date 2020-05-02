@@ -246,6 +246,13 @@ div.inner {
 }
 
 .answeredOption {
-  background-color: #b3ccff;
-  border: 2px solid #003366;
+  background-color: #99d6ff;
+  border: 2px solid black;
+  padding: 2%;
+}
+
+.unansweredOption {
+  background-color: #99d6ff;
+  border: 1px solid gray;
+  padding: 2%;
 }
