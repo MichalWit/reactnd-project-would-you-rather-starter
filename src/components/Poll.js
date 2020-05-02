@@ -52,7 +52,7 @@ class UnansweredPoll extends Component {
                         />
                         {question.optionOne.text}
                     </div>
-                    <div>or</div>
+                    <div className='center'>OR</div>
                     <div className="radio">
                         <input
                             type="radio"
@@ -63,7 +63,7 @@ class UnansweredPoll extends Component {
                         {question.optionTwo.text}
                     </div>
                 </form>
-                <button onClick={this._handleSubmit}>Submit</button>
+                <button className='btn' onClick={this._handleSubmit}>Submit</button>
             </ImageWithContent>
         )
     }

@@ -34,7 +34,7 @@ class NewQuestion extends Component {
 
     render() {
         return (
-            <div className="questionContainer">
+            <div className="questionContainer newQuestion">
                 <h2>Create new question</h2>
                 <div>Would you rather:</div>
                 <form onSubmit={this._handleSubmit}>
@@ -42,7 +42,7 @@ class NewQuestion extends Component {
                         value={this.state.optionOne}
                         onChange={this._handleOptionAChange}
                     />
-                    <div>Or</div>
+                    <div>OR</div>
                     <textarea
                         value={this.state.optionTwo}
                         onChange={this._handleOptionBChange}
@@ -51,6 +51,7 @@ class NewQuestion extends Component {
                         <button
                             onSubmit={this._handleSubmit}
                             type="submit"
+                            className='btn'
                         >
                             Submit
                         </button>

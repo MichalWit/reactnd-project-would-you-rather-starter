@@ -256,3 +256,12 @@ div.inner {
   border: 1px solid gray;
   padding: 2%;
 }
+
+.newQuestion {
+  padding: 2%;
+  margin-top: 2%;
+}
+
+.newQuestion textarea {
+  width: 100%;
+}
