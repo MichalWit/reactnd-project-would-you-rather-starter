@@ -6,7 +6,7 @@ body {
 }
 
 .miniAvatar {
-  width: 24px
+  width: 45px
 }
 
 .mediumAvatar {
@@ -27,14 +27,13 @@ a {
 
 .btn {
   text-transform: uppercase;
-  margin: 35px auto;
+  margin: 10px auto;
   padding: 10px;
   border: 1px solid rgba(0,0,0,.29);
   cursor: pointer;
   background: #fff;
   font-size: 16px;
   width: 250px;
-  position: relative;
 }
 
 .btn:hover {
@@ -88,6 +87,7 @@ ul {
   height: 60px;
   line-height: 60px;
   white-space: nowrap;
+  padding-left: 10px;
 }
 
 .questionsContainer {
@@ -115,8 +115,18 @@ ul {
   margin: 3%;
 }
 
+.verticalAlignMiddle {
+  vertical-align: middle;
+}
+
 .containerWithTextOnTheLeft {
   text-align: left;
+}
+
+.questionDate {
+  font-size: small;
+  text-align: right;
+  color: grey;
 }
 
 .answerTab {
@@ -135,11 +145,6 @@ ul {
   background: #0040ff;
   border: 2px solid #003366;
   color: white;
-}
-
-.navTab {
-  display: inline-block;
-  padding-left: 10px;
 }
 
 .navUserSection {

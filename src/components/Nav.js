@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { setSignedInUser } from '../actions/authedUser'
 
 function NavTab(props) {
-    return <div className='navTab'>{props.label}</div>
+    return <div className='navTab'>{props.label}{props.children}</div>
 }
 
 class NavUserSection extends React.Component {
@@ -22,11 +22,11 @@ class NavUserSection extends React.Component {
                     <img
                         src={this.props.authedUser.avatarURL}
                         alt={`Avatar of name ${this.props.authedUser.name}`}
-                        className="avatar miniAvatar"
+                        className="avatar miniAvatar verticalAlignMiddle"
                     />
                 </div>
                 <div className="centerContainerElement">
-                    <span className='logOutBtn' onClick={this._handlSignOut}>(Log out)</span>
+                    <span className='logOutBtn' onClick={this._handlSignOut}><button className='btn'>Log out</button></span>
                 </div>
         </div>
     }

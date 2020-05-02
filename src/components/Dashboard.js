@@ -28,27 +28,33 @@ class Questions extends Component {
         return (
             <ul>
                 {
-                    this.props.questions.map((detailedQuestion) => {
+                    this.props.questions
+                        .sort((q1, q2) => (q2.timestamp - q1.timestamp))
+                        .map((detailedQuestion) => {
 
-                        const {
-                            id,
-                            optionOneText,
-                            authorName,
-                            authorAvatarURL
-                        } = detailedQuestion
+                            const {
+                                id,
+                                optionOneText,
+                                authorName,
+                                authorAvatarURL,
+                                timestamp
+                            } = detailedQuestion
 
-                        return <li key={id}>
-                            <ImageWithContent
-                                name={authorName}
-                                avatarURL={authorAvatarURL}
-                                label="asks"
-                            >
-                                <div>Would you rather:</div>
-                                <div>... {optionOneText} ...</div>
-                                <Link to={`/questions/${id}`}><button>View poll</button></Link>
-                            </ImageWithContent>
-                        </li>
-                    })
+                            return <li key={id}>
+                                <ImageWithContent
+                                    name={authorName}
+                                    avatarURL={authorAvatarURL}
+                                    label="asks"
+                                >
+                                    <div>
+                                        <div>Would you rather:</div>
+                                        <div>... {optionOneText} ...</div>
+                                        <Link to={`/questions/${id}`}><button className='btn'>View poll</button></Link>
+                                    </div>
+                                    <div className="questionDate">Asked on: {new Date(timestamp).toISOString().slice(0, 10)}</div>
+                                </ImageWithContent>
+                            </li>
+                        })
                 }
             </ul>
         )
@@ -70,6 +76,7 @@ class Dashboard extends Component {
     _addAvatarAndName(question, users) {
         return {
             id: question.id,
+            timestamp: question.timestamp,
             optionOneText: question.optionOne.text,
             authorAvatarURL: users[question.author].avatarURL,
             authorName: users[question.author].name
