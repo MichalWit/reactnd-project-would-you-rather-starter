@@ -1,4 +1,5 @@
 import { _saveQuestion, _saveQuestionAnswer } from '../utils/_DATA'
+import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const QUESTION_ANSWERED = 'QUESTION_ANSWERED'
@@ -15,6 +16,7 @@ function questionAnswered({questionId, answer, authedUserId}) {
 
 export function handleQuestionAnswered({questionId, answer, authedUserId}) {
     return (dispatch) => {
+        dispatch(showLoading())
         _saveQuestionAnswer(
             {
                 authedUser: authedUserId,
@@ -24,6 +26,11 @@ export function handleQuestionAnswered({questionId, answer, authedUserId}) {
         )
         .then(() => {
             dispatch(questionAnswered({questionId, answer, authedUserId}))
+            dispatch(hideLoading())
+        })
+        .catch((e) => {
+            alert("Something went wrong, please try again.")
+            dispatch(hideLoading())
         })
     }
 }
@@ -45,6 +52,7 @@ function addNewQuestion(question) {
 export function handleAddNewQuestion(optionOne, optionTwo, authedUserId, history) {
     
     return (dispatch) => {
+        dispatch(showLoading())
         _saveQuestion(
             {
                 optionOneText: optionOne,
@@ -54,6 +62,11 @@ export function handleAddNewQuestion(optionOne, optionTwo, authedUserId, history
         ).then((question) => {
             dispatch(addNewQuestion(question))
             history.push("/")
+            dispatch(hideLoading())
+        })
+        .catch((e) => {
+            alert("Something went wrong, please try again.")
+            dispatch(hideLoading())
         })
     }
 }
