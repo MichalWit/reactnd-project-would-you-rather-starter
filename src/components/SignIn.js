@@ -35,7 +35,7 @@ class SignIn extends Component {
             return {
                 name: selectedUser.name,
                 avatarURL: selectedUser.avatarURL,
-                label: "Selected user"
+                label: ""
             }
         } else {
             return {

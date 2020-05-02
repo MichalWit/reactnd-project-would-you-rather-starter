@@ -37,39 +37,35 @@ class UnansweredPoll extends Component {
     render() {
         const { question, author } = this.props
         return (
-            <ul>
-                <li>
-                    <ImageWithContent
-                        name={author.name}
-                        avatarURL={author.avatarURL}
-                        label="asks"
-                    >
-                        <div>Would you rather</div>
-                        <form>
-                            <div className="radio">
-                                <input
-                                    type="radio"
-                                    value={OPTIONS.o1}
-                                    checked={this.state.selectedOption === OPTIONS.o1}
-                                    onChange={this._handleChange}
-                                />
-                                {question.optionOne.text}
-                            </div>
-                            <div>or</div>
-                            <div className="radio">
-                                <input
-                                    type="radio"
-                                    value={OPTIONS.o2}
-                                    checked={this.state.selectedOption === OPTIONS.o2}
-                                    onChange={this._handleChange}
-                                />
-                                {question.optionTwo.text}
-                            </div>
-                        </form>
-                        <button onClick={this._handleSubmit}>Submit</button>
-                    </ImageWithContent>
-                </li>
-            </ul>
+            <ImageWithContent
+                name={author.name}
+                avatarURL={author.avatarURL}
+                label="asks"
+            >
+                <div>Would you rather</div>
+                <form>
+                    <div className="radio">
+                        <input
+                            type="radio"
+                            value={OPTIONS.o1}
+                            checked={this.state.selectedOption === OPTIONS.o1}
+                            onChange={this._handleChange}
+                        />
+                        {question.optionOne.text}
+                    </div>
+                    <div>or</div>
+                    <div className="radio">
+                        <input
+                            type="radio"
+                            value={OPTIONS.o2}
+                            checked={this.state.selectedOption === OPTIONS.o2}
+                            onChange={this._handleChange}
+                        />
+                        {question.optionTwo.text}
+                    </div>
+                </form>
+                <button onClick={this._handleSubmit}>Submit</button>
+            </ImageWithContent>
         )
     }
 }
@@ -133,32 +129,28 @@ class AnsweredPoll extends Component {
         const answer = user.answers[question.id]
         const isOptionOneChosen = answer === OPTIONS.o1
         return (
-            <ul>
-                <li>
-                    <ImageWithContent
-                        name={author.name}
-                        avatarURL={author.avatarURL}
-                        label="asked"
-                    >
-                        <div>
-                            <div>Would you rather</div>
-                            <AnsweredOption
-                                isChosen={isOptionOneChosen}
-                                questionText={question.optionOne.text}
-                                optionStats={one}
-                                allAnswers={allAnswers}
-                            />
-                            <div>or</div>
-                            <AnsweredOption
-                                isChosen={!isOptionOneChosen}
-                                questionText={question.optionTwo.text}
-                                optionStats={two}
-                                allAnswers={allAnswers}
-                            />
-                        </div>
-                    </ImageWithContent>
-                </li>
-            </ul>
+            <ImageWithContent
+                name={author.name}
+                avatarURL={author.avatarURL}
+                label="asked"
+            >
+                <div>
+                    <div>Would you rather</div>
+                    <AnsweredOption
+                        isChosen={isOptionOneChosen}
+                        questionText={question.optionOne.text}
+                        optionStats={one}
+                        allAnswers={allAnswers}
+                    />
+                    <div>or</div>
+                    <AnsweredOption
+                        isChosen={!isOptionOneChosen}
+                        questionText={question.optionTwo.text}
+                        optionStats={two}
+                        allAnswers={allAnswers}
+                    />
+                </div>
+            </ImageWithContent>
         )
     }
 }

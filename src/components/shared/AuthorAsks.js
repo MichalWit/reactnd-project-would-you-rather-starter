@@ -5,7 +5,7 @@ export default function AuthorAsks(props) {
     const {author, label} = props
     
     return (
-        <div className="question">
+        <div className="pollInnerLeft">
             <div>{author.name} {label}:</div>
             <img
                 src={author.avatarURL}
