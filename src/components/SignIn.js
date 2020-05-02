@@ -58,20 +58,25 @@ class SignIn extends Component {
                         avatarURL={userData.avatarURL}
                         label={userData.label}
                     >
-                        <form onSubmit={this._handleSubmit}>
-                            <select onChange={this._handleChange}>
-                                {
-                                    Object.values(users).map((user) => (
-                                        <option key={user.id} value={user.id}>{user.name}</option>
-                                    ))
-                                }
-                            </select>
-                            <button
-                                type='submit'
-                                onSubmit={this._handleSubmit}
-                                disabled={this.state.selectedUserId===null}
-                            >Sign in</button>
-                        </form>
+                        <div className='genericCenterContainer'>
+                            <form onSubmit={this._handleSubmit}>
+                                <div>
+                                    <select onChange={this._handleChange}>
+                                        {
+                                            Object.values(users).map((user) => (
+                                                <option key={user.id} value={user.id}>{user.name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
+                                <button
+                                    type='submit'
+                                    onSubmit={this._handleSubmit}
+                                    disabled={this.state.selectedUserId===null}
+                                    className='btn'
+                                >Sign in</button>
+                            </form>
+                        </div>
                     </ImageWithContent>
                 </div>
             </div>

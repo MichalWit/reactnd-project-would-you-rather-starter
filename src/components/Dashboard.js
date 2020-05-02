@@ -8,15 +8,15 @@ class QuestionLabel extends Component {
     render() {
         const { answeredDisplayed, toggleTab } = this.props
         return (
-            <div>
-                <h3
-                    className={`answerTab ${answeredDisplayed ? "activeAnswerTab" : ""}`}
-                    onClick={!answeredDisplayed ? toggleTab : null}
-                >Answered</h3>
-                <h3
+            <div className="answersTabs">
+                <div
                     className={`answerTab ${!answeredDisplayed ? "activeAnswerTab" : ""}`}
                     onClick={answeredDisplayed ? toggleTab : null}
-                >Unanswered</h3>
+                >Unanswered</div>
+                <div
+                    className={`answerTab ${answeredDisplayed ? "activeAnswerTab" : ""}`}
+                    onClick={!answeredDisplayed ? toggleTab : null}
+                >Answered</div>
             </div>
         )
     }
